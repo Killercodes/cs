@@ -39,3 +39,44 @@ public class MainClass
     }
 }
 ```
+
+Example 2
+```cs
+using System;
+
+  class Client
+  {
+    static void Main(string[] args)
+    {
+      try{
+        Engine eng = Engine.GetEngine();
+      }catch (Exception e){
+        Console.WriteLine(e.Message);
+      }
+      
+      try{
+        Engine eng = Engine.GetEngine();
+      }catch (Exception e){
+        Console.WriteLine(e.Message);
+      }
+    }
+  }
+  sealed class Engine
+  {
+    private static bool instanceFlag = false;
+    public static Engine GetEngine()
+    {
+      if (!instanceFlag)
+      {  
+        instanceFlag = true;
+        return new Engine();
+      }else{
+        throw new Exception("An engine has already been created!");
+      }
+    }
+    private Engine()
+    {
+      Console.WriteLine("An Engine");
+    }
+  }
+  ```

@@ -1,0 +1,11 @@
+#days gone [KEYPRESS,KEYDOWN,KEYUP,START,DELAY,RCLICK,LCLICK,MCLICK]
+"reload primary"|"reload my gun": KEYPRESS VK_1|KEYPRESS VK_R
+"reload sidearm": KEYPRESS VK_S|KEYPRESS VK_R|TYPE i have sidearm now
+"reload second primary": KEYPRESS VK_P|KEYPRESS VK_R
+"throw grenade": KEYPRESS VK_4|MOUSE RCLICK
+"throw molotov": KEYPRESS VK_4|KEYPRESS VK_4|MOUSE R_CLICK
+"forward":KEYDOWN VK_W
+"stop":KEYUP VK_W|KEYUP VK_S|KEYUP VK_A|KEYUP VK_D
+"open youtube":START chrome.exe,www.youtube.com
+"open github":START chrome.exe,www.github.com
+"say hi":SENDKEY Hi there

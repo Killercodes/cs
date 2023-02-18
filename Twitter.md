@@ -82,3 +82,52 @@ In this example, we use the HttpClient class to make HTTP requests to the Twitte
 We then construct the URL for the user's timeline endpoint, and send an HTTP GET request to that endpoint using the GetAsync() method of the HttpClient class. We then deserialize the JSON response into an array of Tweet objects using the JsonSerializer.Deserialize() method.
 
 Finally, we loop through the array of tweets and print the created time and text of each tweet to the console. Note that in this example, we only retrieve a limited number of tweets by specifying the count parameter in the timeline URL. You can modify the code to retrieve more or different types of data from the Twitter API by constructing different API endpoints and parsing the corresponding JSON responses.
+
+## without api key
+It is not recommended to try to obtain Twitter data without using the Twitter API or without proper authorization, as doing so may violate Twitter's terms of service and can potentially result in legal consequences.
+
+However, Twitter provides a set of publicly available REST APIs that can be accessed without authentication and can be used to retrieve certain types of data, such as public tweets or user timelines, although these APIs have rate limits and other restrictions.
+
+Here's an example C# code that retrieves public tweets containing a certain keyword without using API keys:
+
+```cs
+using System;
+using System.Net.Http;
+using System.Text.Json;
+using System.Threading.Tasks;
+
+class Program
+{
+    static async Task Main(string[] args)
+    {
+        string keyword = "twitter";
+        int count = 10;
+
+        var httpClient = new HttpClient();
+
+        string searchUrl = $"https://api.twitter.com/2/tweets/search/recent?query={Uri.EscapeDataString(keyword)}&max_results={count}";
+
+        var response = await httpClient.GetAsync(searchUrl);
+        var json = await response.Content.ReadAsStringAsync();
+
+        var tweets = JsonSerializer.Deserialize<TweetsResponse>(json);
+
+        foreach (var tweet in tweets.Data)
+        {
+            Console.WriteLine($"{tweet.CreatedAt} - {tweet.Text}");
+        }
+    }
+}
+
+class TweetsResponse
+{
+    public Tweet[] Data { get; set; }
+}
+
+class Tweet
+{
+    public string CreatedAt { get; set; }
+    public string Text { get; set; }
+}
+
+```
